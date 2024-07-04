@@ -33,7 +33,7 @@
                 barcode VARCHAR(13),
                 description VARCHAR(50),
                 price DECIMAL(5,2),
-                photo BLOB
+                photo VARCHAR(100)
             );';
 
             $resultado = $conexion->query($consulta);
