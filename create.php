@@ -8,9 +8,16 @@
     </head>
     <body>
         <?php
+            if (session_status() == PHP_SESSION_NONE) {
+                header('Location: ./login.php');
+                die();
+            } else {
+                session_start();
+            }
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $basedatos = '';
-                $tabla = '';
+                $tabla = 'tArticulos';
                 include_once('./functions.php');
 
                 $conexion = conectar();

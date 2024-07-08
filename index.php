@@ -7,6 +7,14 @@
         <link rel="stylesheet" href="./css/styles.css" type="text/css">
     </head>
     <body>
+        <?php
+            if (session_status() == PHP_SESSION_NONE) {
+                header('Location: ./login.php');
+                die();
+            } else {
+                session_start();
+            }
+        ?>
         <header>
             <h1>Demo: Crear una aplicación PHP Crud</h1>
         </header>

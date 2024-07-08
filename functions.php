@@ -16,7 +16,6 @@
 
     function comprobarBD($conexion, &$basedatos, &$tabla) {
         $basedatos = 'phpShopDB';
-        $tabla = 'tArticulos';
 
         $consulta = 'CREATE DATABASE IF NOT EXISTS ' . $basedatos . ';';
 
@@ -40,6 +39,37 @@
             }
         }
 
+        return $resultado;
+    }
+
+    function login($conexion, $basedatos, $tabla, $email, $password) {
+        $resultado = false;
+
+        $consulta = 'SELECT * FROM ' . $basedatos . '.' . $tabla . ' WHERE email = ?;'; 
+
+        $stmt = $conexion->prepare($consulta);
+
+        if ($stmt) {
+            $stmt->bind_param('s', $_email);
+
+            $_email = $email;
+
+            $datosusuario = $stmt->execute();
+            $stmt->close();
+        }
+        
+        if (!$datosusuario) {
+            $resultado = false;
+        } else {
+            $datos = mysql_fetch_row($datosusuario);
+            if ($datos[1] != $password) {
+                $resultado = false;
+            } else {
+                $resultado = true;
+            }
+        }
+
+        $conexion->close();
         return $resultado;
     }
 
